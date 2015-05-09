@@ -1,4 +1,5 @@
-﻿using HousingServicePrototype.Models.Domain;
+﻿using HousingServicePrototype.Models.DataAccess;
+using HousingServicePrototype.Models.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,16 @@ namespace HousingServicePrototype.Models.Repository
 
         public Person Get(int id)
         {
-            throw new NotImplementedException();
+            var starRezApi = new StarRezApi();
+            var starRezResponse = new ApiResponse();
+
+            starRezResponse = starRezApi.GetEntry("ID1", id.ToString()).Result;
+            var entry = starRezResponse.Entries.First();
+
+            AutoMapper.Mapper.CreateMap<Entry, Person>();
+            var person = AutoMapper.Mapper.Map<Person>(entry);
+
+            return person;
         }
 
         public void Add(Person person)

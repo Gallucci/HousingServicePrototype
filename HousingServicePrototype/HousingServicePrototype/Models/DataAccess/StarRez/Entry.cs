@@ -63,7 +63,6 @@ namespace HousingServicePrototype.Models.DataAccess
         public DateTime? Birthdate { get; set; }
 
         // Age (calculated)
-        [DataMember(Name = "Date_Age")]
         public int Age 
         { 
             get 

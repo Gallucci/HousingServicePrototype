@@ -39,10 +39,12 @@
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,10 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigHelper.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="Models\DataAccess\StarRez\ApiResponse.cs" />
     <Compile Include="Models\DataAccess\StarRez\Entry.cs" />
     <Compile Include="Models\DataAccess\StarRez\StarRezApi.cs" />
+    <Compile Include="Models\DataAccess\StarRez\GetEntryRequest.cs" />
     <Compile Include="Models\Domain\IEntity.cs" />
     <Compile Include="Models\Domain\Person.cs" />
     <Compile Include="Models\Repository\IPersonRepository.cs" />

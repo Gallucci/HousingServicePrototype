@@ -1,4 +1,5 @@
-﻿using HousingServicePrototype.Models.DataAccess;
+﻿using HousingServicePrototype.Models.Repository;
+using HousingServicePrototype.Models.DataAccess.StarRez;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,20 +13,20 @@ namespace HousingServicePrototype
     {        
         static void Main(string[] args)
         {
-            var starRezApi = new StarRezApi();
-            var starRezResponse = new ApiResponse();
+            var pr = new PersonRepository();
+            var person = pr.Get(99999999);
 
-            starRezResponse = starRezApi.GetEntry("99999999").Result;
+            IOHelper.WriteObjectProperties(person);
 
-            if (starRezResponse.Success)
-            {
-                foreach (var starRezEntry in starRezResponse.Entries)
-                {                    
-                    IOHelper.WriteObjectProperties(starRezEntry);
-                }
-            }
-            else
-                Console.WriteLine(starRezResponse.ErrorMessage);
+            //var starRezSearch = new EntrySearchRequest.SearchRequestBuilder("https", "myuahome.life.arizona.edu", "/StarRezREST/services/")
+            //    .AddSearchCriteria("ID1", "99999999")
+            //    .SetTopNumberOfRecords(5)
+            //    .IncludeEntryAddressTable()
+            //    .IncludeEntryDetailsTable()
+            //    .Build();
+
+            //Console.WriteLine(starRezSearch.ServiceUrl.ToString());
+            //Console.WriteLine(starRezSearch.CommandUrl.ToString());
         }
     }
 }

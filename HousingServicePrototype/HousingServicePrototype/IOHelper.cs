@@ -19,9 +19,12 @@ namespace HousingServicePrototype
             }
         }
 
-        public static string GetProp()
+        public static void AddOrUpDate<K, V>(this IDictionary<K, V> dictionary, K key, V value)
         {
-            return "Id1";
+            if (dictionary.ContainsKey(key))
+                dictionary[key] = value;
+            else
+                dictionary.Add(new KeyValuePair<K, V>(key, value));
         }
     }    
 }
