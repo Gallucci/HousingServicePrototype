@@ -55,7 +55,12 @@
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="Models\DataAccess\StarRez\ApiResponse.cs" />
+    <Compile Include="Models\DataAccess\StarRez\BaseRequest.cs" />
+    <Compile Include="Models\DataAccess\StarRez\BaseRequestBuilder.cs" />
+    <Compile Include="Models\DataAccess\StarRez\EntryBooking.cs" />
     <Compile Include="Models\DataAccess\StarRez\Entry.cs" />
+    <Compile Include="Models\DataAccess\StarRez\EntryAddress.cs" />
+    <Compile Include="Models\DataAccess\StarRez\EntryDetail.cs" />
     <Compile Include="Models\DataAccess\StarRez\StarRezApi.cs" />
     <Compile Include="Models\DataAccess\StarRez\GetEntryRequest.cs" />
     <Compile Include="Models\Domain\IEntity.cs" />
@@ -66,7 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

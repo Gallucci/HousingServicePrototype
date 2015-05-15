@@ -14,24 +14,31 @@ namespace HousingServicePrototype.Models.DataAccess
 {
     class StarRezApi
     {
-        public async Task<ApiResponse> GetEntry(string name, string value)
+        //public async Task<ApiResponse> GetEntry(string name, string value)
+        //{
+        //    var StarRezApiScheme = ConfigHelper.GetStringValue("StarRezApiScheme");
+        //    var StarRezApiHost = ConfigHelper.GetStringValue("StarRezApiHost");
+        //    var StarRezApiPath = ConfigHelper.GetStringValue("StarRezApiPath");
+
+        //    var starRezGetRequest = new GetEntryRequest.RequestBuilder(StarRezApiScheme, StarRezApiHost, StarRezApiPath)
+        //        .AddSearchCriteria(name, value)
+        //        .IncludeEntryAddressTable()
+        //        .IncludeEntryDetailsTable()
+        //        .Build();
+
+        //    var responseApi = await SendRequest(starRezGetRequest);
+        //    var responseEntry = responseApi;
+        //    return responseEntry;
+        //}
+
+        public async Task<ApiResponse> GetEntry(BaseRequest request)
         {
-            var StarRezApiScheme = ConfigHelper.GetStringValue("StarRezApiScheme");
-            var StarRezApiHost = ConfigHelper.GetStringValue("StarRezApiHost");
-            var StarRezApiPath = ConfigHelper.GetStringValue("StarRezApiPath");
-
-            var starRezGetRequest = new GetEntryRequest.RequestBuilder(StarRezApiScheme, StarRezApiHost, StarRezApiPath)
-                .AddSearchCriteria(name, value)
-                .IncludeEntryAddressTable()
-                .IncludeEntryDetailsTable()
-                .Build();
-
-            var responseApi = await SendRequest(starRezGetRequest);
+            var responseApi = await SendRequest(request);
             var responseEntry = responseApi;
             return responseEntry;
         }
 
-        private async Task<ApiResponse> SendRequest(GetEntryRequest request)
+        private async Task<ApiResponse> SendRequest(BaseRequest request)
         {
             var apiResponse = new ApiResponse();
             var handler = new HttpClientHandler
@@ -51,7 +58,7 @@ namespace HousingServicePrototype.Models.DataAccess
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // HTTP GET
-                var response = await client.GetAsync(request.CommandUrl);
+                var response = await client.GetAsync(request.RequestUrl);
 
                 if(response.IsSuccessStatusCode)
                 {

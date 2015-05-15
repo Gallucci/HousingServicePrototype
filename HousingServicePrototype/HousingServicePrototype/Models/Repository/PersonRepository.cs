@@ -1,4 +1,5 @@
 ﻿using HousingServicePrototype.Models.DataAccess;
+using HousingServicePrototype.Models.DataAccess.StarRez;
 using HousingServicePrototype.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,31 @@ namespace HousingServicePrototype.Models.Repository
             throw new NotImplementedException();
         }
 
+        //public Person Get(int id)
+        //{
+        //    var starRezApi = new StarRezApi();
+        //    var starRezResponse = new ApiResponse();
+
+        //    starRezResponse = starRezApi.GetEntry("ID1", id.ToString()).Result;
+        //    var entry = starRezResponse.Entries.First();
+
+        //    AutoMapper.Mapper.CreateMap<Entry, Person>();
+        //    var person = AutoMapper.Mapper.Map<Person>(entry);
+
+        //    return person;
+        //}
+
         public Person Get(int id)
         {
             var starRezApi = new StarRezApi();
             var starRezResponse = new ApiResponse();
-
-            starRezResponse = starRezApi.GetEntry("ID1", id.ToString()).Result;
+            
+            var starRezGetRequest = new GetEntryRequest.RequestBuilder()
+                .AddSearchCriteria("ID1", id.ToString())
+                .IncludeEntryAddressTable()
+                .IncludeEntryDetailsTable()
+                .Build();
+            
             var entry = starRezResponse.Entries.First();
 
             AutoMapper.Mapper.CreateMap<Entry, Person>();
@@ -28,7 +48,7 @@ namespace HousingServicePrototype.Models.Repository
 
             return person;
         }
-
+ 
         public void Add(Person person)
         {
             throw new NotImplementedException();

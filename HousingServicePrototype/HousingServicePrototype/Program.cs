@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HousingServicePrototype.Models.DataAccess;
 
 namespace HousingServicePrototype
 {
@@ -13,20 +14,51 @@ namespace HousingServicePrototype
     {        
         static void Main(string[] args)
         {
-            var pr = new PersonRepository();
-            var person = pr.Get(99999999);
+            var request = new GetEntryRequest.RequestBuilder()
+                .AddSearchCriteria("ID1", "123456")
+                .IncludeEntryAddressTable()
+                .IncludeEntryDetailsTable()
+                .IncludeBookingTable()
+                .Build();
 
-            IOHelper.WriteObjectProperties(person);
+            var request2 = new GetEntryRequest.RequestBuilder("https", "myuahome.life.arizona.edu", "/StarRezREST/services/")
+                .AddSearchCriteria("ID1", "99999999")
+                .SetTopNumberOfRecords(1)
+                .IncludeBookingTable()
+                .Build();
 
-            //var starRezSearch = new EntrySearchRequest.SearchRequestBuilder("https", "myuahome.life.arizona.edu", "/StarRezREST/services/")
-            //    .AddSearchCriteria("ID1", "99999999")
-            //    .SetTopNumberOfRecords(5)
-            //    .IncludeEntryAddressTable()
-            //    .IncludeEntryDetailsTable()
-            //    .Build();
+            var starRezApi = new StarRezApi();
+            var starRezResponse = starRezApi.GetEntry(request).Result;
+            var entry = starRezResponse.Entries.First();
+            IOHelper.WriteObjectProperties(entry);
 
-            //Console.WriteLine(starRezSearch.ServiceUrl.ToString());
-            //Console.WriteLine(starRezSearch.CommandUrl.ToString());
+            if (entry.Addresses.Any())
+            {
+                foreach (var address in entry.Addresses)
+                {
+                    IOHelper.WriteObjectProperties(address);
+                }
+            }
+
+            if (entry.Details.Any())
+            {
+                foreach (var detail in entry.Details)
+                {
+                    IOHelper.WriteObjectProperties(detail);
+                }
+            }
+
+            if(entry.Bookings.Any())
+            {
+                foreach (var booking in entry.Bookings)
+                {
+                    IOHelper.WriteObjectProperties(booking);
+                }
+            }
+
+            //var pr = new PersonRepository();
+            //var person = pr.Get(99999999);
+            //IOHelper.WriteObjectProperties(person);
         }
     }
 }

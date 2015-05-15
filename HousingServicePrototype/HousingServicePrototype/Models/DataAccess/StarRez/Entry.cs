@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HousingServicePrototype.Models.DataAccess.StarRez;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,6 +11,13 @@ namespace HousingServicePrototype.Models.DataAccess
     [DataContract]
     class Entry
     {
+        public Entry()
+        {
+            Details = new List<EntryDetail>();
+            Addresses = new List<EntryAddress>();
+            Bookings = new List<EntryBooking>();
+        }
+
         // Id
         [DataMember(Name = "EntryId")]
         public string Id { get; set; }
@@ -95,5 +103,17 @@ namespace HousingServicePrototype.Models.DataAccess
         // Unsure
         [DataMember(Name = "Id5")]
         public string Id5 { get; set; }
+
+        // Entry Addresses
+        [DataMember(Name = "EntryAddress")]
+        public IList<EntryAddress> Addresses { get; set; }
+
+        // Entry Details
+        [DataMember(Name = "EntryDetail")]
+        public IList<EntryDetail> Details { get; set; }
+
+        // Entry Bookings
+        [DataMember(Name = "Booking")]
+        public IList<EntryBooking> Bookings { get; set; }
     }
 }

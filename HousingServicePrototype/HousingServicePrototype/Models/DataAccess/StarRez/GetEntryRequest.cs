@@ -7,45 +7,42 @@ using System.Web;
 
 namespace HousingServicePrototype.Models.DataAccess.StarRez
 {
-    class GetEntryRequest
+    class GetEntryRequest : BaseRequest
     {
-        public string ServiceScheme { get; set; }
-        public string ServiceHost { get; set; }
-        public string ServicePath { get; set; }        
+        // Implementation-specific properties
         public IList<string> RelatedTables { get; set; }
-        public Uri ServiceUrl { get; set; }
-        public Uri CommandUrl { get; set; }
-
-        private GetEntryRequest(RequestBuilder builder)
-        {
+        
+        private GetEntryRequest(RequestBuilder builder) : base()
+        {            
             ServiceScheme = builder.ServiceScheme;
             ServiceHost = builder.ServiceHost;
             ServicePath = builder.ServicePath;            
-            RelatedTables = builder.RelatedTables;
             ServiceUrl = builder.ServiceUrl;
-            CommandUrl = builder.CommandUrl;
+            RequestUrl = builder.RequestUrl;
+
+            RelatedTables = builder.RelatedTables;
         }
 
-        internal sealed class RequestBuilder
+        internal sealed class RequestBuilder : BaseRequestBuilder
         {
-            public string ServiceScheme { get; set; }
-            public string ServiceHost { get; set; }
-            public string ServicePath { get; set; }            
+            // Implementation-specific properties
             public IList<string> RelatedTables { get; set; }
             public IDictionary<string, string> QueryParameters { get; set; }
-            public Uri ServiceUrl { get; set; }
-            public Uri CommandUrl { get; set; }
+            
+            public RequestBuilder() : base()
+            {                
+                Initalize();
+            }
 
-            public RequestBuilder(string serviceScheme, string serviceHost, string servicePath)
+            public RequestBuilder(string serviceScheme, string serviceHost, string servicePath) : base(serviceScheme, serviceHost, servicePath)
             {
-                ServiceScheme = serviceScheme;
-                ServiceHost = serviceHost;
-                ServicePath = servicePath;
+                Initalize();
+            }
 
+            private void Initalize()
+            {
                 RelatedTables = new List<string>();
                 QueryParameters = new Dictionary<string, string>();
-
-                ServiceUrl = new UriBuilder() { Scheme = serviceScheme, Host = serviceHost, Path = servicePath }.Uri;
             }
 
             public RequestBuilder AddSearchCriteria(string key, string value)
@@ -72,7 +69,13 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
                 return this;
             }
 
-            public GetEntryRequest Build()
+            public RequestBuilder IncludeBookingTable()
+            {
+                RelatedTables.Add("Booking");
+                return this;
+            }
+
+            public BaseRequest Build()
             {
 
                 // Append the select elements to the path
@@ -99,7 +102,7 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
                 };
 
                 // Set the URI property
-                CommandUrl = uriBuilder.Uri;
+                RequestUrl = uriBuilder.Uri;
 
                 // Return the constructed Service Uri
                 return new GetEntryRequest(this);
