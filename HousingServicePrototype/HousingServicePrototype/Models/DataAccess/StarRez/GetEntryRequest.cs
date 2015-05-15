@@ -57,13 +57,13 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
                 return this;
             }
             
-            public RequestBuilder IncludeEntryAddressTable()
+            public RequestBuilder IncludeAddressTable()
             {
                 RelatedTables.Add("EntryAddress");
                 return this;
             }
 
-            public RequestBuilder IncludeEntryDetailsTable()
+            public RequestBuilder IncludeDetailsTable()
             {
                 RelatedTables.Add("EntryDetail");
                 return this;
@@ -75,6 +75,12 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
                 return this;
             }
 
+            public RequestBuilder IncludeApplicationTable()
+            {
+                RelatedTables.Add("EntryApplication");
+                return this;
+            }
+
             public BaseRequest Build()
             {
 
@@ -82,7 +88,7 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
                 ServicePath += "Select/Entry/";
 
                 // Include any related tables
-                if (RelatedTables.Count > 0)
+                if (RelatedTables.Any())
                     QueryParameters.Add("_relatedtables", string.Join(",", RelatedTables.ToArray()));
 
                 // Format the parameters into URL-friendly query parameters

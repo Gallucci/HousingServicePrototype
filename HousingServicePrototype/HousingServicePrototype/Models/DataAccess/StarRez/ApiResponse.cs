@@ -8,6 +8,11 @@ namespace HousingServicePrototype.Models.DataAccess
 {
     class ApiResponse
     {
+        public ApiResponse()
+        {
+            Entries = new List<Entry>();
+        }
+
         public bool Success { get; set; }
         public IEnumerable<Entry> Entries { get; set; }
         public string ErrorMessage { get; set; }

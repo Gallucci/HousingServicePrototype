@@ -32,21 +32,30 @@ namespace HousingServicePrototype.Models.Repository
 
         public Person Get(int id)
         {
-            var starRezApi = new StarRezApi();
-            var starRezResponse = new ApiResponse();
-            
-            var starRezGetRequest = new GetEntryRequest.RequestBuilder()
+            // Use the StarRez GetEntryRequest builder to build the URL request
+            var request = new GetEntryRequest.RequestBuilder()
                 .AddSearchCriteria("ID1", id.ToString())
-                .IncludeEntryAddressTable()
-                .IncludeEntryDetailsTable()
+                .IncludeAddressTable()
+                .IncludeDetailsTable()
+                .IncludeBookingTable()
                 .Build();
-            
-            var entry = starRezResponse.Entries.First();
 
-            AutoMapper.Mapper.CreateMap<Entry, Person>();
-            var person = AutoMapper.Mapper.Map<Person>(entry);
+            // Send the request and get the response
+            var api = new StarRezApi();
+            var response = api.GetResponse(request).Result;
 
-            return person;
+            if (response.Entries.Any())
+            {
+                var entry = response.Entries.First();
+
+                // Map the entry to a person
+                AutoMapper.Mapper.CreateMap<Entry, Person>();
+                var person = AutoMapper.Mapper.Map<Person>(entry);
+
+                return person;
+            }
+            else
+                throw new Exception(string.Format("Could not find person with ID [{0}]", id.ToString()));
         }
  
         public void Add(Person person)

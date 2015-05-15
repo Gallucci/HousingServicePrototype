@@ -15,49 +15,61 @@ namespace HousingServicePrototype
         static void Main(string[] args)
         {
             var request = new GetEntryRequest.RequestBuilder()
-                .AddSearchCriteria("ID1", "123456")
-                .IncludeEntryAddressTable()
-                .IncludeEntryDetailsTable()
-                .IncludeBookingTable()
+                .AddSearchCriteria("ID1", "123456")                
                 .Build();
 
             var request2 = new GetEntryRequest.RequestBuilder("https", "myuahome.life.arizona.edu", "/StarRezREST/services/")
                 .AddSearchCriteria("ID1", "99999999")
-                .SetTopNumberOfRecords(1)
+                .IncludeAddressTable()
+                .IncludeDetailsTable()
                 .IncludeBookingTable()
+                .IncludeApplicationTable()
                 .Build();
 
-            var starRezApi = new StarRezApi();
-            var starRezResponse = starRezApi.GetEntry(request).Result;
-            var entry = starRezResponse.Entries.First();
-            IOHelper.WriteObjectProperties(entry);
+            var api = new StarRezApi();
+            var response = api.GetResponse(request).Result;
 
-            if (entry.Addresses.Any())
+            if (response.Entries.Any())
             {
-                foreach (var address in entry.Addresses)
+                var entry = response.Entries.First();
+                IOHelper.WriteObjectProperties(entry);
+
+                if (entry.Addresses.Any())
                 {
-                    IOHelper.WriteObjectProperties(address);
+                    foreach (var address in entry.Addresses)
+                    {
+                        IOHelper.WriteObjectProperties(address);
+                    }
+                }
+
+                if (entry.Details.Any())
+                {
+                    foreach (var detail in entry.Details)
+                    {
+                        IOHelper.WriteObjectProperties(detail);
+                    }
+                }
+
+                if (entry.Bookings.Any())
+                {
+                    foreach (var booking in entry.Bookings)
+                    {
+                        IOHelper.WriteObjectProperties(booking);
+                    }
+                }
+
+                if (entry.Applications.Any())
+                {
+                    foreach (var application in entry.Applications)
+                    {
+                        IOHelper.WriteObjectProperties(application);
+                    }
                 }
             }
 
-            if (entry.Details.Any())
-            {
-                foreach (var detail in entry.Details)
-                {
-                    IOHelper.WriteObjectProperties(detail);
-                }
-            }
-
-            if(entry.Bookings.Any())
-            {
-                foreach (var booking in entry.Bookings)
-                {
-                    IOHelper.WriteObjectProperties(booking);
-                }
-            }
-
+            //// Using the Repository
             //var pr = new PersonRepository();
-            //var person = pr.Get(99999999);
+            //var person = pr.Get(123456);
             //IOHelper.WriteObjectProperties(person);
         }
     }

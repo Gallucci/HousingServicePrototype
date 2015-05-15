@@ -14,24 +14,7 @@ namespace HousingServicePrototype.Models.DataAccess
 {
     class StarRezApi
     {
-        //public async Task<ApiResponse> GetEntry(string name, string value)
-        //{
-        //    var StarRezApiScheme = ConfigHelper.GetStringValue("StarRezApiScheme");
-        //    var StarRezApiHost = ConfigHelper.GetStringValue("StarRezApiHost");
-        //    var StarRezApiPath = ConfigHelper.GetStringValue("StarRezApiPath");
-
-        //    var starRezGetRequest = new GetEntryRequest.RequestBuilder(StarRezApiScheme, StarRezApiHost, StarRezApiPath)
-        //        .AddSearchCriteria(name, value)
-        //        .IncludeEntryAddressTable()
-        //        .IncludeEntryDetailsTable()
-        //        .Build();
-
-        //    var responseApi = await SendRequest(starRezGetRequest);
-        //    var responseEntry = responseApi;
-        //    return responseEntry;
-        //}
-
-        public async Task<ApiResponse> GetEntry(BaseRequest request)
+        public async Task<ApiResponse> GetResponse(BaseRequest request)
         {
             var responseApi = await SendRequest(request);
             var responseEntry = responseApi;

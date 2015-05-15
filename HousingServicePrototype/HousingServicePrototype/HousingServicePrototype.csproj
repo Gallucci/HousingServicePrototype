@@ -57,6 +57,7 @@
     <Compile Include="Models\DataAccess\StarRez\ApiResponse.cs" />
     <Compile Include="Models\DataAccess\StarRez\BaseRequest.cs" />
     <Compile Include="Models\DataAccess\StarRez\BaseRequestBuilder.cs" />
+    <Compile Include="Models\DataAccess\StarRez\EntryApplication.cs" />
     <Compile Include="Models\DataAccess\StarRez\EntryBooking.cs" />
     <Compile Include="Models\DataAccess\StarRez\Entry.cs" />
     <Compile Include="Models\DataAccess\StarRez\EntryAddress.cs" />
