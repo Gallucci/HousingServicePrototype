@@ -14,11 +14,11 @@ namespace HousingServicePrototype
     {        
         static void Main(string[] args)
         {
-            var request = new GetEntryRequest.RequestBuilder()
-                .AddSearchCriteria("ID1", "123456")                
+            var request = new GetEntryRequest.GetEntryRequestBuilder()
+                .AddSearchCriteria("ID1", "123456")
                 .Build();
 
-            var request2 = new GetEntryRequest.RequestBuilder("https", "myuahome.life.arizona.edu", "/StarRezREST/services/")
+            var request2 = new GetEntryRequest.GetEntryRequestBuilder("https", "myuahome.life.arizona.edu", "/StarRezREST/services/")
                 .AddSearchCriteria("ID1", "99999999")
                 .IncludeAddressTable()
                 .IncludeDetailsTable()

@@ -9,32 +9,23 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
 {
     class GetEntryRequest : BaseRequest
     {
-        // Implementation-specific properties
-        public IList<string> RelatedTables { get; set; }
-        
-        private GetEntryRequest(RequestBuilder builder) : base()
-        {            
-            ServiceScheme = builder.ServiceScheme;
-            ServiceHost = builder.ServiceHost;
-            ServicePath = builder.ServicePath;            
-            ServiceUrl = builder.ServiceUrl;
-            RequestUrl = builder.RequestUrl;
+        // Constructor
+        private GetEntryRequest(GetEntryRequestBuilder builder) : base(builder) { }
 
-            RelatedTables = builder.RelatedTables;
-        }
-
-        internal sealed class RequestBuilder : BaseRequestBuilder
+        // Builder
+        internal sealed class GetEntryRequestBuilder : BaseRequestBuilder
         {
             // Implementation-specific properties
             public IList<string> RelatedTables { get; set; }
             public IDictionary<string, string> QueryParameters { get; set; }
             
-            public RequestBuilder() : base()
+            public GetEntryRequestBuilder() : base()
             {                
                 Initalize();
             }
 
-            public RequestBuilder(string serviceScheme, string serviceHost, string servicePath) : base(serviceScheme, serviceHost, servicePath)
+            public GetEntryRequestBuilder(string serviceScheme, string serviceHost, string servicePath)
+                : base(serviceScheme, serviceHost, servicePath)
             {
                 Initalize();
             }
@@ -45,37 +36,37 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
                 QueryParameters = new Dictionary<string, string>();
             }
 
-            public RequestBuilder AddSearchCriteria(string key, string value)
+            public GetEntryRequestBuilder AddSearchCriteria(string key, string value)
             {
                 IOHelper.AddOrUpDate(QueryParameters, key, value);
                 return this;
             }
 
-            public RequestBuilder SetTopNumberOfRecords(int value)
+            public GetEntryRequestBuilder SetTopNumberOfRecords(int value)
             {                
                 IOHelper.AddOrUpDate(QueryParameters, "_top", value.ToString());
                 return this;
             }
-            
-            public RequestBuilder IncludeAddressTable()
+
+            public GetEntryRequestBuilder IncludeAddressTable()
             {
                 RelatedTables.Add("EntryAddress");
                 return this;
             }
 
-            public RequestBuilder IncludeDetailsTable()
+            public GetEntryRequestBuilder IncludeDetailsTable()
             {
                 RelatedTables.Add("EntryDetail");
                 return this;
             }
 
-            public RequestBuilder IncludeBookingTable()
+            public GetEntryRequestBuilder IncludeBookingTable()
             {
                 RelatedTables.Add("Booking");
                 return this;
             }
 
-            public RequestBuilder IncludeApplicationTable()
+            public GetEntryRequestBuilder IncludeApplicationTable()
             {
                 RelatedTables.Add("EntryApplication");
                 return this;

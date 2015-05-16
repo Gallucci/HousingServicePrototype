@@ -8,9 +8,12 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
 {
     abstract class BaseRequest
     {
-        public virtual string ServiceScheme { get; set; }
-        public virtual string ServiceHost { get; set; }
-        public virtual string ServicePath { get; set; }
+        protected BaseRequest(BaseRequestBuilder builder)
+        {
+            ServiceUrl = builder.ServiceUrl;
+            RequestUrl = builder.RequestUrl;
+        }
+
         public virtual Uri ServiceUrl { get; set; }
         public virtual Uri RequestUrl { get; set; }
     }

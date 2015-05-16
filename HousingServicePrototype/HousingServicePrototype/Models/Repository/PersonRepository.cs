@@ -33,11 +33,12 @@ namespace HousingServicePrototype.Models.Repository
         public Person Get(int id)
         {
             // Use the StarRez GetEntryRequest builder to build the URL request
-            var request = new GetEntryRequest.RequestBuilder()
+            var request = new GetEntryRequest.GetEntryRequestBuilder()
                 .AddSearchCriteria("ID1", id.ToString())
                 .IncludeAddressTable()
                 .IncludeDetailsTable()
                 .IncludeBookingTable()
+                .IncludeApplicationTable()
                 .Build();
 
             // Send the request and get the response
