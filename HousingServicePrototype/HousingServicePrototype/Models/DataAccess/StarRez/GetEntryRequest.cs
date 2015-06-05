@@ -9,15 +9,15 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
 {
     class GetEntryRequest : BaseRequest
     {
-        // Constructor
+        // Request
         private GetEntryRequest(GetEntryRequestBuilder builder) : base(builder) { }
 
-        // Builder
+        // Request Builder
         internal sealed class GetEntryRequestBuilder : BaseRequestBuilder
         {
             // Implementation-specific properties
-            public IList<string> RelatedTables { get; set; }
-            public IDictionary<string, string> QueryParameters { get; set; }
+            private IList<string> RelatedTables { get; set; }
+            private IDictionary<string, string> QueryParameters { get; set; }
             
             public GetEntryRequestBuilder() : base()
             {                

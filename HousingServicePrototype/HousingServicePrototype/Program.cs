@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HousingServicePrototype.Models.DataAccess;
+using HousingServicePrototype.Models.DataAccess.EDS;
 
 namespace HousingServicePrototype
 {
@@ -26,12 +27,12 @@ namespace HousingServicePrototype
                 .IncludeApplicationTable()
                 .Build();
 
-            var api = new StarRezApi();
-            var response = api.GetResponse(request).Result;
+            var starRezApi = new StarRezApi();
+            var starRezResponse = starRezApi.GetResponse(request).Result;
 
-            if (response.Entries.Any())
+            if (starRezResponse.Entries.Any())
             {
-                var entry = response.Entries.First();
+                var entry = starRezResponse.Entries.First();
                 IOHelper.WriteObjectProperties(entry);
 
                 if (entry.Addresses.Any())
@@ -71,6 +72,9 @@ namespace HousingServicePrototype
             //var pr = new PersonRepository();
             //var person = pr.Get(123456);
             //IOHelper.WriteObjectProperties(person);
+
+            var edsApi = new EdsApi();
+            var edsResponse = edsApi.GetResponse("https://siaapps.uits.arizona.edu/home/web_services/edsLookup/16201293/emplId.json");
         }
     }
 }

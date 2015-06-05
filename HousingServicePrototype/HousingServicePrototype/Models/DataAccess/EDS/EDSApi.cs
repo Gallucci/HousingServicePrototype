@@ -1,5 +1,4 @@
-﻿using HousingServicePrototype.Models.DataAccess.StarRez;
-using HousingServicePrototype.Models.DataAccess.StarRez.DTO;
+﻿using HousingServicePrototype.Models.DataAccess.EDS.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,55 +9,57 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace HousingServicePrototype.Models.DataAccess
+namespace HousingServicePrototype.Models.DataAccess.EDS
 {
-    class StarRezApi
+    class EdsApi
     {
-        public async Task<ApiResponse> GetResponse(BaseRequest request)
+        //public async Task<ApiResponse> GetResponse(BaseRequest request)
+        public async Task<ApiResponse> GetResponse(string request)
         {
             var responseApi = await SendRequest(request);
             var responseEntry = responseApi;
             return responseEntry;
         }
 
-        private async Task<ApiResponse> SendRequest(BaseRequest request)
+        //private async Task<ApiResponse> SendRequest(BaseRequest request)
+        private async Task<ApiResponse> SendRequest(string request)
         {
             var apiResponse = new ApiResponse();
             var handler = new HttpClientHandler
             {
                 Credentials = new NetworkCredential
                 {
-                    UserName = ConfigHelper.GetStringValue("StarRezApiUserName"),
-                    Domain = ConfigHelper.GetStringValue("StarRezApiDomain"),
-                    Password = ConfigHelper.GetStringValue("StarRezApiPassword")
+                    UserName = ConfigHelper.GetStringValue("EdsApiUserName"),
+                    Domain = ConfigHelper.GetStringValue("EdsApiDomain"),
+                    Password = ConfigHelper.GetStringValue("EdsApiPassword")
                 }
             };
 
             using (var client = new HttpClient(handler))
             {
-                client.BaseAddress = request.ServiceUrl;
+                //client.BaseAddress = request.ServiceUrl;
+                client.BaseAddress = new Uri("https://siaapps.uits.arizona.edu/home/web_services/edsLookup/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // HTTP GET
-                var response = await client.GetAsync(request.RequestUrl);
+                //var response = await client.GetAsync(request.RequestUrl);
+                var response = await client.GetAsync(request);
 
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
                     var formatters = new List<MediaTypeFormatter>
                     {
                         new JsonMediaTypeFormatter()
                     };
                     apiResponse.Success = true;
-                    apiResponse.Entries = await response.Content.ReadAsAsync<List<Entry>>(formatters);
+                    apiResponse.People = await response.Content.ReadAsAsync<List<Person>>(formatters);
                     return apiResponse;
                 }
 
                 apiResponse.Success = false;
                 apiResponse.ErrorMessage = string.Format("Error occurred, the status code is {0}", response.StatusCode);
-                apiResponse.Entries = new List<Entry>();
-
+                apiResponse.People = new List<Person>();
                 return apiResponse;
             }
         }

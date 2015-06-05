@@ -1,5 +1,6 @@
 ﻿using HousingServicePrototype.Models.DataAccess;
 using HousingServicePrototype.Models.DataAccess.StarRez;
+using HousingServicePrototype.Models.DataAccess.StarRez.DTO;
 using HousingServicePrototype.Models.Domain;
 using System;
 using System.Collections.Generic;

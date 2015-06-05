@@ -54,14 +54,17 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="IOHelper.cs" />
+    <Compile Include="Models\DataAccess\EDS\ApiResponse.cs" />
+    <Compile Include="Models\DataAccess\EDS\DTO\Person.cs" />
+    <Compile Include="Models\DataAccess\EDS\EdsApi.cs" />
     <Compile Include="Models\DataAccess\StarRez\ApiResponse.cs" />
     <Compile Include="Models\DataAccess\StarRez\BaseRequest.cs" />
     <Compile Include="Models\DataAccess\StarRez\BaseRequestBuilder.cs" />
-    <Compile Include="Models\DataAccess\StarRez\EntryApplication.cs" />
-    <Compile Include="Models\DataAccess\StarRez\EntryBooking.cs" />
-    <Compile Include="Models\DataAccess\StarRez\Entry.cs" />
-    <Compile Include="Models\DataAccess\StarRez\EntryAddress.cs" />
-    <Compile Include="Models\DataAccess\StarRez\EntryDetail.cs" />
+    <Compile Include="Models\DataAccess\StarRez\DTO\EntryApplication.cs" />
+    <Compile Include="Models\DataAccess\StarRez\DTO\EntryBooking.cs" />
+    <Compile Include="Models\DataAccess\StarRez\DTO\Entry.cs" />
+    <Compile Include="Models\DataAccess\StarRez\DTO\EntryAddress.cs" />
+    <Compile Include="Models\DataAccess\StarRez\DTO\EntryDetail.cs" />
     <Compile Include="Models\DataAccess\StarRez\StarRezApi.cs" />
     <Compile Include="Models\DataAccess\StarRez\GetEntryRequest.cs" />
     <Compile Include="Models\Domain\IEntity.cs" />
