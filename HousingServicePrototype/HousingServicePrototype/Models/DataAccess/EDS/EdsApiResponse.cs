@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace HousingServicePrototype.Models.DataAccess.EDS
 {
-    class ApiResponse
+    class EdsApiResponse
     {
-        public ApiResponse()
+        public EdsApiResponse()
         {
-            People = new List<Person>();
+            //People = new List<Person>();
         }
 
         public bool Success { get; set; }
-        public IEnumerable<Person> People { get; set; }
+        public Person Person{ get; set; }
         public string ErrorMessage { get; set; }
     }
 }

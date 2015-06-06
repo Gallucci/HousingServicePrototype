@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="IOHelper.cs" />
-    <Compile Include="Models\DataAccess\EDS\ApiResponse.cs" />
+    <Compile Include="Models\DataAccess\EDS\EdsApiResponse.cs" />
     <Compile Include="Models\DataAccess\EDS\DTO\Person.cs" />
     <Compile Include="Models\DataAccess\EDS\EdsApi.cs" />
     <Compile Include="Models\DataAccess\StarRez\ApiResponse.cs" />

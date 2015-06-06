@@ -14,7 +14,7 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
     class EdsApi
     {
         //public async Task<ApiResponse> GetResponse(BaseRequest request)
-        public async Task<ApiResponse> GetResponse(string request)
+        public async Task<EdsApiResponse> GetResponse(string request)
         {
             var responseApi = await SendRequest(request);
             var responseEntry = responseApi;
@@ -22,15 +22,14 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
         }
 
         //private async Task<ApiResponse> SendRequest(BaseRequest request)
-        private async Task<ApiResponse> SendRequest(string request)
+        private async Task<EdsApiResponse> SendRequest(string request)
         {
-            var apiResponse = new ApiResponse();
+            var apiResponse = new EdsApiResponse();
             var handler = new HttpClientHandler
             {
                 Credentials = new NetworkCredential
                 {
-                    UserName = ConfigHelper.GetStringValue("EdsApiUserName"),
-                    Domain = ConfigHelper.GetStringValue("EdsApiDomain"),
+                    UserName = ConfigHelper.GetStringValue("EdsApiUserName"),                    
                     Password = ConfigHelper.GetStringValue("EdsApiPassword")
                 }
             };
@@ -40,7 +39,7 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
                 //client.BaseAddress = request.ServiceUrl;
                 client.BaseAddress = new Uri("https://siaapps.uits.arizona.edu/home/web_services/edsLookup/");
                 client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
 
                 // HTTP GET
                 //var response = await client.GetAsync(request.RequestUrl);
@@ -53,13 +52,14 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
                         new JsonMediaTypeFormatter()
                     };
                     apiResponse.Success = true;
-                    apiResponse.People = await response.Content.ReadAsAsync<List<Person>>(formatters);
+                    //apiResponse.People = await response.Content.ReadAsAsync<List<Person>>(formatters);
+                    apiResponse.Person = await response.Content.ReadAsAsync<Person>(formatters);
                     return apiResponse;
                 }
 
                 apiResponse.Success = false;
                 apiResponse.ErrorMessage = string.Format("Error occurred, the status code is {0}", response.StatusCode);
-                apiResponse.People = new List<Person>();
+                apiResponse.Person = null;
                 return apiResponse;
             }
         }
