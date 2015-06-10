@@ -19,10 +19,10 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
             private IList<string> RelatedTables { get; set; }
             private IDictionary<string, string> QueryParameters { get; set; }
             
-            public GetEntryRequestBuilder() : base()
-            {                
-                Initalize();
-            }
+            //public GetEntryRequestBuilder() : base()
+            //{                
+            //    Initalize();
+            //}
 
             public GetEntryRequestBuilder(string serviceScheme, string serviceHost, string servicePath)
                 : base(serviceScheme, serviceHost, servicePath)

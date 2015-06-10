@@ -57,9 +57,10 @@
     <Compile Include="Models\DataAccess\EDS\EdsApiResponse.cs" />
     <Compile Include="Models\DataAccess\EDS\DTO\Person.cs" />
     <Compile Include="Models\DataAccess\EDS\EdsApi.cs" />
-    <Compile Include="Models\DataAccess\StarRez\ApiResponse.cs" />
-    <Compile Include="Models\DataAccess\StarRez\BaseRequest.cs" />
-    <Compile Include="Models\DataAccess\StarRez\BaseRequestBuilder.cs" />
+    <Compile Include="Models\DataAccess\EDS\GetPersonRequest.cs" />
+    <Compile Include="Models\DataAccess\StarRez\StarRezApiResponse.cs" />
+    <Compile Include="Models\DataAccess\BaseRequest.cs" />
+    <Compile Include="Models\DataAccess\BaseRequestBuilder.cs" />
     <Compile Include="Models\DataAccess\StarRez\DTO\EntryApplication.cs" />
     <Compile Include="Models\DataAccess\StarRez\DTO\EntryBooking.cs" />
     <Compile Include="Models\DataAccess\StarRez\DTO\Entry.cs" />

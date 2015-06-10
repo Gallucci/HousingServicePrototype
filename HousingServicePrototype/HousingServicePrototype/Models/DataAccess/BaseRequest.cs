@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HousingServicePrototype.Models.DataAccess.StarRez
+namespace HousingServicePrototype.Models.DataAccess
 {
     abstract class BaseRequest
     {

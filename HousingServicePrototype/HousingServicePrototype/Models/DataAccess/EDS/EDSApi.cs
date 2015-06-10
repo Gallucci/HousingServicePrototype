@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 namespace HousingServicePrototype.Models.DataAccess.EDS
 {
     class EdsApi
-    {
-        //public async Task<ApiResponse> GetResponse(BaseRequest request)
-        public async Task<EdsApiResponse> GetResponse(string request)
+    {        
+        //public async Task<EdsApiResponse> GetResponse(string request)
+        public async Task<EdsApiResponse> GetResponse(BaseRequest request)
         {
             var responseApi = await SendRequest(request);
             var responseEntry = responseApi;
             return responseEntry;
         }
-
-        //private async Task<ApiResponse> SendRequest(BaseRequest request)
-        private async Task<EdsApiResponse> SendRequest(string request)
+        
+        //private async Task<EdsApiResponse> SendRequest(string request)
+        private async Task<EdsApiResponse> SendRequest(BaseRequest request)
         {
             var apiResponse = new EdsApiResponse();
             var handler = new HttpClientHandler
@@ -35,15 +35,15 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
             };
 
             using (var client = new HttpClient(handler))
-            {
-                //client.BaseAddress = request.ServiceUrl;
-                client.BaseAddress = new Uri("https://siaapps.uits.arizona.edu/home/web_services/edsLookup/");
+            {                
+                //client.BaseAddress = new Uri("https://siaapps.uits.arizona.edu/home/web_services/edsLookup/");
+                client.BaseAddress = request.ServiceUrl;
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
 
                 // HTTP GET
-                //var response = await client.GetAsync(request.RequestUrl);
-                var response = await client.GetAsync(request);
+                var response = await client.GetAsync(request.RequestUrl);
+                //var response = await client.GetAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {

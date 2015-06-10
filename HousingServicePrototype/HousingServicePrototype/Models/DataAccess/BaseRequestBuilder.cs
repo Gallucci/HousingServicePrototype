@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HousingServicePrototype.Models.DataAccess.StarRez
+namespace HousingServicePrototype.Models.DataAccess
 {
     abstract class BaseRequestBuilder
     {
@@ -14,13 +14,13 @@ namespace HousingServicePrototype.Models.DataAccess.StarRez
         public Uri ServiceUrl { get; set; }
         public Uri RequestUrl { get; set; }
 
-        protected BaseRequestBuilder()
-        {
-            ServiceScheme = ConfigHelper.GetStringValue("StarRezApiScheme");
-            ServiceHost = ConfigHelper.GetStringValue("StarRezApiHost");
-            ServicePath = ConfigHelper.GetStringValue("StarRezApiPath");
-            ServiceUrl = new UriBuilder() { Scheme = ServiceScheme, Host = ServiceHost, Path = ServicePath }.Uri;
-        }
+        //protected BaseRequestBuilder()
+        //{
+        //    ServiceScheme = ConfigHelper.GetStringValue("StarRezApiScheme");
+        //    ServiceHost = ConfigHelper.GetStringValue("StarRezApiHost");
+        //    ServicePath = ConfigHelper.GetStringValue("StarRezApiPath");
+        //    ServiceUrl = new UriBuilder() { Scheme = ServiceScheme, Host = ServiceHost, Path = ServicePath }.Uri;
+        //}
 
         protected BaseRequestBuilder(string serviceScheme, string serviceHost, string servicePath)
         {

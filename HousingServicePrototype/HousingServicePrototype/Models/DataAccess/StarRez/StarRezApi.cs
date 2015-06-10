@@ -15,16 +15,16 @@ namespace HousingServicePrototype.Models.DataAccess
 {
     class StarRezApi
     {
-        public async Task<ApiResponse> GetResponse(BaseRequest request)
+        public async Task<StarRezApiResponse> GetResponse(BaseRequest request)
         {
             var responseApi = await SendRequest(request);
             var responseEntry = responseApi;
             return responseEntry;
         }
 
-        private async Task<ApiResponse> SendRequest(BaseRequest request)
+        private async Task<StarRezApiResponse> SendRequest(BaseRequest request)
         {
-            var apiResponse = new ApiResponse();
+            var apiResponse = new StarRezApiResponse();
             var handler = new HttpClientHandler
             {
                 Credentials = new NetworkCredential

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HousingServicePrototype.Models.DataAccess.StarRez
 {
-    class ApiResponse
+    class StarRezApiResponse
     {
-        public ApiResponse()
+        public StarRezApiResponse()
         {
             Entries = new List<Entry>();
         }

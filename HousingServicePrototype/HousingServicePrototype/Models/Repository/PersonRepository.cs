@@ -33,8 +33,12 @@ namespace HousingServicePrototype.Models.Repository
 
         public Person Get(int id)
         {
+            var scheme = ConfigHelper.GetStringValue("StarRezApiScheme");
+            var host = ConfigHelper.GetStringValue("StarRezApiHost");
+            var path = ConfigHelper.GetStringValue("StarRezApiPath");
+
             // Use the StarRez GetEntryRequest builder to build the URL request
-            var request = new GetEntryRequest.GetEntryRequestBuilder()
+            var request = new GetEntryRequest.GetEntryRequestBuilder(scheme, host, path)
                 .AddSearchCriteria("ID1", id.ToString())
                 .IncludeAddressTable()
                 .IncludeDetailsTable()
