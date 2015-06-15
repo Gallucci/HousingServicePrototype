@@ -136,12 +136,19 @@ namespace HousingServicePrototype
             var person = edsPersonServiceResponse.Person;
             if (person != null)
             {
-                foreach (var attribute in person.DirectoryEntry.EntryAttributes)
+                Console.WriteLine(person.DirectoryEntry.Entry.DomainName);
+
+                foreach (var value in person.DirectoryEntry.Entry.ObjectClass.Values)
+                {
+                    Console.WriteLine("  [" + value + "]");
+                }
+
+                foreach (var attribute in person.DirectoryEntry.Entry.Attributes)
                 {
                     Console.WriteLine(attribute.Name);
-                    foreach (var value in attribute.Value)
+                    foreach (var value in attribute.Values)
                     {
-                        Console.WriteLine("  [" + value + "]");  
+                        Console.WriteLine("  [" + value + "]");
                     }
                 }
             }

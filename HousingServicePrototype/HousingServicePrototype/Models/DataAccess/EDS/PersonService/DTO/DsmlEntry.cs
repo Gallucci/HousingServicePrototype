@@ -17,10 +17,27 @@ namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService.DTO
 
     public class DirectoryEntry
     {
-        [XmlArray(ElementName = "entry")]
-        [XmlArrayItem("attr", typeof(Attribute))]
-        public Attribute[] EntryAttributes { get; set; }
+        [XmlElement(ElementName = "entry")]
+        public Entry Entry { get; set; }
 
+    }
+
+    public class Entry
+    {
+        [XmlAttribute(AttributeName = "dn")]
+        public string DomainName { get; set; }
+
+        [XmlElement(ElementName = "attr")]
+        public Attribute[] Attributes { get; set; }
+
+        [XmlElement(ElementName = "objectclass")]
+        public ObjectClass ObjectClass { get; set; }
+    }
+
+    public class ObjectClass
+    {
+        [XmlElement(ElementName = "oc-value")]
+        public string[] Values { get; set; }
     }
 
     public class Attribute
@@ -29,7 +46,7 @@ namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService.DTO
         public string Name { get; set; }
 
         [XmlElement(ElementName = "value")]        
-        public string[] Value { get; set; }
+        public string[] Values { get; set; }
     }
 }
 
