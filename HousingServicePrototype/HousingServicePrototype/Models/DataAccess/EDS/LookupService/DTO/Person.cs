@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HousingServicePrototype.Models.DataAccess.EDS.DTO
+namespace HousingServicePrototype.Models.DataAccess.EDS.LookupService.DTO
 {
     [DataContract]
     class Person

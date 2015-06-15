@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HousingServicePrototype.Models.DataAccess.EDS
+namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService
 {
     class GetPersonRequest : BaseRequest
     {
@@ -24,38 +24,57 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
             }
 
             private void Initalize()
-            {                
+            {
                 QueryParameters = new Dictionary<string, string>();
             }
 
-            public GetPersonRequestBuilder AddSearchCriteria(string key, string value)
+            public GetPersonRequestBuilder SearchByStudentId(string value)
             {
-                IOHelper.AddOrUpDate(QueryParameters, key, value);
+                QueryParameters.Clear();
+                IOHelper.AddOrUpDate(QueryParameters, "emplId", value);
+                return this;
+            }
+
+            public GetPersonRequestBuilder SearchByNetId(string value)
+            {
+                QueryParameters.Clear();
+                IOHelper.AddOrUpDate(QueryParameters, "uid", value);
+                return this;
+            }
+
+            public GetPersonRequestBuilder SearchByEmplId(string value)
+            {
+                QueryParameters.Clear();
+                IOHelper.AddOrUpDate(QueryParameters, "emplId", value);
+                return this;
+            }
+
+            public GetPersonRequestBuilder SearchByUaId(string value)
+            {
+                QueryParameters.Clear();
+                IOHelper.AddOrUpDate(QueryParameters, "uaid", value);
                 return this;
             }
 
             public BaseRequest Build()
-            {                
+            {
                 // Format the parameters into URL-friendly query parameters                
                 foreach (var parameter in QueryParameters)
                 {
                     // Append the select elements to the path
-                    if(ServicePath.EndsWith("/"))
-                        ServicePath += string.Format("{0}/{1}", parameter.Value, parameter.Key);
+                    if (ServicePath.EndsWith("/"))
+                        ServicePath += string.Format("{0}", parameter.Value);
                     else
-                        ServicePath += string.Format("/{0}/{1}", parameter.Value, parameter.Key);
+                        ServicePath += string.Format("/{0}", parameter.Value);
                 }
-                
-                //Append the Json extension
-                ServicePath += ".json";
 
                 // Construct the URI
                 UriBuilder uriBuilder = new UriBuilder()
                 {
                     Scheme = ServiceScheme,
                     Host = ServiceHost,
-                    Path = ServicePath                    
-                };                
+                    Path = ServicePath
+                };
 
                 // Set the URI property
                 RequestUrl = uriBuilder.Uri;

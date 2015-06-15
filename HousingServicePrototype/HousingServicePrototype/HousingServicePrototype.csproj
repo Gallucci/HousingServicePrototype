@@ -44,6 +44,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,10 +55,14 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="IOHelper.cs" />
-    <Compile Include="Models\DataAccess\EDS\EdsApiResponse.cs" />
-    <Compile Include="Models\DataAccess\EDS\DTO\Person.cs" />
-    <Compile Include="Models\DataAccess\EDS\EdsApi.cs" />
-    <Compile Include="Models\DataAccess\EDS\GetPersonRequest.cs" />
+    <Compile Include="Models\DataAccess\EDS\LookupService\EdsApiResponse.cs" />
+    <Compile Include="Models\DataAccess\EDS\LookupService\DTO\Person.cs" />
+    <Compile Include="Models\DataAccess\EDS\LookupService\EdsApi.cs" />
+    <Compile Include="Models\DataAccess\EDS\LookupService\GetPersonRequest.cs" />
+    <Compile Include="Models\DataAccess\EDS\PersonService\DTO\DsmlEntry.cs" />
+    <Compile Include="Models\DataAccess\EDS\PersonService\EdiApi.cs" />
+    <Compile Include="Models\DataAccess\EDS\PersonService\EdsApiResponse.cs" />
+    <Compile Include="Models\DataAccess\EDS\PersonService\GetPersonRequest.cs" />
     <Compile Include="Models\DataAccess\StarRez\StarRezApiResponse.cs" />
     <Compile Include="Models\DataAccess\BaseRequest.cs" />
     <Compile Include="Models\DataAccess\BaseRequestBuilder.cs" />

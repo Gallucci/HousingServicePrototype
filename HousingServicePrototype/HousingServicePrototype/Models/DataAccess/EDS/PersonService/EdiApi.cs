@@ -1,4 +1,4 @@
-﻿using HousingServicePrototype.Models.DataAccess.EDS.DTO;
+﻿using HousingServicePrototype.Models.DataAccess.EDS.PersonService.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +9,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HousingServicePrototype.Models.DataAccess.EDS
+namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService
 {
-    class EdsApi
+    class EdiApi
     {        
-        //public async Task<EdsApiResponse> GetResponse(string request)
         public async Task<EdsApiResponse> GetResponse(BaseRequest request)
         {
             var responseApi = await SendRequest(request);
@@ -21,7 +20,6 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
             return responseEntry;
         }
         
-        //private async Task<EdsApiResponse> SendRequest(string request)
         private async Task<EdsApiResponse> SendRequest(BaseRequest request)
         {
             var apiResponse = new EdsApiResponse();
@@ -29,31 +27,28 @@ namespace HousingServicePrototype.Models.DataAccess.EDS
             {
                 Credentials = new NetworkCredential
                 {
-                    UserName = ConfigHelper.GetStringValue("EdsApiUserName"),                    
-                    Password = ConfigHelper.GetStringValue("EdsApiPassword")
+                    UserName = ConfigHelper.GetStringValue("EdsPersonApiUserName"),
+                    Password = ConfigHelper.GetStringValue("EdsPersonApiPassword")
                 }
             };
 
             using (var client = new HttpClient(handler))
             {                
-                //client.BaseAddress = new Uri("https://siaapps.uits.arizona.edu/home/web_services/edsLookup/");
                 client.BaseAddress = request.ServiceUrl;
                 client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
 
                 // HTTP GET
-                var response = await client.GetAsync(request.RequestUrl);
-                //var response = await client.GetAsync(request);
+                var response = await client.GetAsync(request.RequestUrl);                
 
                 if (response.IsSuccessStatusCode)
                 {
                     var formatters = new List<MediaTypeFormatter>
                     {
-                        new JsonMediaTypeFormatter()
+                        new XmlMediaTypeFormatter() {UseXmlSerializer = true}
                     };
-                    apiResponse.Success = true;
-                    //apiResponse.People = await response.Content.ReadAsAsync<List<Person>>(formatters);
-                    apiResponse.Person = await response.Content.ReadAsAsync<Person>(formatters);
+                    apiResponse.Success = true;                    
+                    apiResponse.Person = await response.Content.ReadAsAsync<DsmlEntry>(formatters);
                     return apiResponse;
                 }
 
