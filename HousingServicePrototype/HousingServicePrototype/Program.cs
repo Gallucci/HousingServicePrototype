@@ -134,24 +134,27 @@ namespace HousingServicePrototype
             var edsPersonServiceResponse = edsPersonServiceApi.GetResponse(edsPersonServiceRequest).Result;
 
             var person = edsPersonServiceResponse.Person;
-            if (person != null)
-            {
-                Console.WriteLine(person.DirectoryEntry.Entry.DomainName);
+            //if (person != null)
+            //{
+            //    Console.WriteLine(person.DirectoryEntry.Entry.DomainName);
 
-                foreach (var value in person.DirectoryEntry.Entry.ObjectClass.Values)
-                {
-                    Console.WriteLine("  [" + value + "]");
-                }
+            //    foreach (var value in person.DirectoryEntry.Entry.ObjectClass.Values)
+            //    {
+            //        Console.WriteLine("  [" + value + "]");
+            //    }
 
-                foreach (var attribute in person.DirectoryEntry.Entry.Attributes)
-                {
-                    Console.WriteLine(attribute.Name);
-                    foreach (var value in attribute.Values)
-                    {
-                        Console.WriteLine("  [" + value + "]");
-                    }
-                }
-            }
+            //    foreach (var attribute in person.DirectoryEntry.Entry.Attributes)
+            //    {
+            //        Console.WriteLine(attribute.Name);
+            //        foreach (var value in attribute.Values)
+            //        {
+            //            Console.WriteLine("  [" + value + "]");
+            //        }
+            //    }
+            //}
+
+            var test = new HousingServicePrototype.Models.DataAccess.EDS.PersonService.DTO.Person(person);
+            IOHelper.WriteObjectProperties(test);
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey(); 

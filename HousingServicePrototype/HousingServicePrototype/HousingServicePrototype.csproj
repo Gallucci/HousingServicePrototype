@@ -59,7 +59,9 @@
     <Compile Include="Models\DataAccess\EDS\LookupService\DTO\Person.cs" />
     <Compile Include="Models\DataAccess\EDS\LookupService\EdsApi.cs" />
     <Compile Include="Models\DataAccess\EDS\LookupService\GetPersonRequest.cs" />
+    <Compile Include="Models\DataAccess\EDS\PersonService\DTO\DataMappingAttribute.cs" />
     <Compile Include="Models\DataAccess\EDS\PersonService\DTO\DsmlEntry.cs" />
+    <Compile Include="Models\DataAccess\EDS\PersonService\DTO\Person.cs" />
     <Compile Include="Models\DataAccess\EDS\PersonService\EdiApi.cs" />
     <Compile Include="Models\DataAccess\EDS\PersonService\EdsApiResponse.cs" />
     <Compile Include="Models\DataAccess\EDS\PersonService\GetPersonRequest.cs" />
