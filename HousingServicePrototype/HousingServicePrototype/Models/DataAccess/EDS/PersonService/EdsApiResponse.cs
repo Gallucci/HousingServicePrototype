@@ -12,7 +12,7 @@ namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService
         public EdsApiResponse() {}
 
         public bool Success { get; set; }
-        public DsmlEntry Person { get; set; }
+        public Person Person { get; set; }
         public string ErrorMessage { get; set; }
     }
 }

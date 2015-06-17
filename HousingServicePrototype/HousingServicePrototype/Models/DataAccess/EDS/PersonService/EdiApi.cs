@@ -47,8 +47,9 @@ namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService
                     {
                         new XmlMediaTypeFormatter() {UseXmlSerializer = true}
                     };
-                    apiResponse.Success = true;                    
-                    apiResponse.Person = await response.Content.ReadAsAsync<DsmlEntry>(formatters);
+                    apiResponse.Success = true;
+                    var content = await response.Content.ReadAsAsync<DsmlEntry>(formatters);
+                    apiResponse.Person = new Person(content);
                     return apiResponse;
                 }
 

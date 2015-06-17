@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace HousingServicePrototype.Models.DataAccess.EDS.LookupService.DTO
 {
+    /// <summary>
+    /// A Data Transfer Object (DTO) representing a person inside of the EDS Lookup Service.
+    /// </summary>
     [DataContract]
     class Person
     {
+        /// <summary>
+        /// A Data Transfer Object (DTO) representing a person inside of the EDS Lookup Service.  Maps the JSON returned from a Lookup Service API request.
+        /// </summary>
         public Person() 
         {
-            //EmployeeIncumbentPositions = new List<string>();
-            //EmployeeOrganizationsReporting = new List<string>();
-            //EmployeeTitles = new List<string>();
-            //EmployeeRosterDepartments = new List<string>();
-            //EmployeePositionsFunding = new List<string>();
-            //EmployeePositionsFTE = new List<string>();
+            // Initialize lists
             EduPersonAffiliations = new List<string>();
             ObjectClasses = new List<string>();
             Memberships = new List<string>();
@@ -164,6 +165,6 @@ namespace HousingServicePrototype.Models.DataAccess.EDS.LookupService.DTO
         public string EmployeeAlternateTitle { get; set; }
 
         [DataMember(Name ="dn")]
-        public string DN { get; set; }
+        public string DomainName { get; set; }
     }
 }
