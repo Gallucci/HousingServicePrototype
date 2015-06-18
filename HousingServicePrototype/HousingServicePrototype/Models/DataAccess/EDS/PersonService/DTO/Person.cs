@@ -23,6 +23,9 @@ namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService.DTO
             ObjectClasses = new List<string>();
             EduPersonAffiliations = new List<string>();            
             Memberships = new List<string>();
+            InformationReleaseCodes = new List<string>();
+            StudentStatusHistory = new List<string>();
+            DccRelations = new List<string>();
 
             // Prepare a dictionary of the DSML attributes to faciliate mapping
             var attributes = new Dictionary<string, IList<string>>();
@@ -47,146 +50,381 @@ namespace HousingServicePrototype.Models.DataAccess.EDS.PersonService.DTO
             MapProperties(this, attributes);
         }
         
-        [DataMapping("employeeprimaryaborcode")]
+        /// <summary>
+        /// Employee's primary ABOR code.  For more information see EDS eduPersonAffiliation Overview (http://iia.arizona.edu/eds_attributes).
+        /// </summary>
+        [DataMapping("employeePrimaryAborCode")]
         public string EmployeePrimaryAborCode { get; set; }
 
-        [DataMapping("employeeincumbentposition")]
+        /// <summary>
+        /// A colon (:) separated list with an employee's title, Position Control Number (PCN) from UAccess Employee (######), start date for the position (YYYYMMDD), Employee Type, and Employee Status (see descriptions of employeeType and employeeStatus for values)
+        /// </summary>
+        [DataMapping("employeeIncumbentPosition")]
         public string EmployeeIncumbentPositions { get; set; }
 
-        [DataMapping("employeestatusdate")]
+        /// <summary>
+        /// Date when an employee's current status began, in the format YYYYMMDD.
+        /// </summary>
+        [DataMapping("employeeStatusDate")]
         public string EmployeeStatusDate { get; set; }
 
-        [DataMapping("employeeprimaryorgreporting")]
+        /// <summary>
+        /// Reason for employee termination.  For reasons, see employeeTerminationReason Table (http://iia.arizona.edu/eds_attributes#employeeterminationreason).
+        /// </summary>
+        [DataMapping("employeeTerminationReason")]
+        public string EmployeeTerminationReason { get; set; }
+
+        /// <summary>
+        /// Person's preferred full name (first name middle initial-or-name last name).
+        /// </summary>
+        [DataMapping("preferredCn")]
+        public string PreferredFullName { get; set; }
+
+        /// <summary>
+        /// Person's preferred last name.
+        /// </summary>
+        [DataMapping("preferredSn")]
+        public string PreferredLastName { get; set; }
+
+        /// <summary>
+        /// A colon (:) separated list containing a PCN (position control number), the Roster Department number for that position, the college to which the employee reports (formatted as college code and college description, separated by a dash (-)), and the VP to which the employee reports (formatted as VP code and VP description, separated by a dash (-)).
+        /// </summary>
+        [DataMapping("employeePrimaryOrgReporting")]
         public string EmployeePrimaryOrganizationReporting { get; set; }
 
-        [DataMapping("employeeorgreporting")]
+        /// <summary>
+        /// A colon (:) separated list containing a PCN (position control number), the Roster Department number for that position, the college to which the employee reports (formatted as college code and college description, separated by a dash (-)), and the VP to which the employee reports (formatted as VP code and VP description, separated by a dash (-)).
+        /// </summary>
+        [DataMapping("employeeOrgReporting")]
         public string EmployeeOrganizationReporting { get; set; }
 
-        [DataMapping("employeetotalannualrate")]
+        /// <summary>
+        /// Total annual salary of an employee (actual, not normalized to 1.0 FTE).
+        /// </summary>
+        [DataMapping("employeeTotalAnnualRate")]
         public decimal EmployeeTotalAnnualRate { get; set; }
 
-        [DataMapping("employeetitle")]
+        /// <summary>
+        /// All current employee titles, including titles for incumbent positions.
+        /// </summary>
+        [DataMapping("employeeTitle")]
         public string EmployeeTitle { get; set; }
 
-        [DataMapping("employeeprimarytitle")]
+        /// <summary>
+        /// Retiree title.
+        /// </summary>
+        [DataMapping("employeeRetireeTitle")]
+        public string EmployeeRetireeTitle { get; set; }
+
+        /// <summary>
+        /// Employee primary title from among all their incumbent positions.
+        /// </summary>
+        [DataMapping("employeePrimaryTitle")]
         public string EmployeePrimaryTitle { get; set; }
 
-        [DataMapping("employeeofficialorgname")]
+        /// <summary>
+        /// Official organization name for an employee.
+        /// </summary>
+        [DataMapping("employeeOfficialOrgName")]
         public string EmployeeOfficialOrganizationName { get; set; }
 
-        [DataMapping("employeeofficialorg")]
+        /// <summary>
+        ///  Official organization code for an employee.
+        /// </summary>
+        [DataMapping("employeeOfficialOrg")]
         public string EmployeeOfficalOrganization { get; set; }
 
-        [DataMapping("employeehiredate")]
+        /// <summary>
+        /// Most recent start of employment date for an employee.  For an employee who has left the university and subsequently been re-hired, this reflects the most recent hire date, not the original hire date.
+        /// </summary>
+        [DataMapping("employeeHireDate")]
         public string EmployeeHireDate { get; set; }
 
-        [DataMapping("isonumber")]
+        /// <summary>
+        /// Sixteen-digit ISO number from person's CatCard.
+        /// </summary>
+        [DataMapping("isoNumber")]
         public long IsoNumber { get; set; }
 
-        [DataMapping("employeestate")]
+        /// <summary>
+        /// Employee's work address state.
+        /// </summary>
+        [DataMapping("employeeState")]
         public string EmployeeState { get; set; }
 
-        [DataMapping("employeeroomnum")]
+        /// <summary>
+        /// Room number associated with an employee's primary office.
+        /// </summary>
+        [DataMapping("employeeRoomNum")]
         public string EmployeeRoomNumber { get; set; }
 
-        [DataMapping("employeephone")]
+        /// <summary>
+        /// UA phone number of an employee in the format ##########.
+        /// </summary>
+        [DataMapping("employeePhone")]
         public string EmployeePhoneNumber { get; set; }
 
+        /// <summary>
+        /// Person's UA NetID username.
+        /// </summary>
         [DataMapping("uid")]
         public string NetId { get; set; }
 
-        [DataMapping("employeerosterdept")]
+        /// <summary>
+        /// Dept # of department to which an employee submits their timesheet. Each instance of this attribute will contain a PCN (position control number), and the Roster Department number for that position, separated by a colon (':').
+        /// </summary>
+        [DataMapping("employeeRosterDept")]
         public string EmployeeRosterDepartment { get; set; }
 
-        [DataMapping("employeepositionfunding")]
+        /// <summary>
+        /// A colon (:) separated list containing the UAccess Employee position control number (PCN) and the funding department number. For each position an employee occupies there will be at least one corresponding value in this attribute if the position is funded; non-funded positions will not appear in the value set of this attribute.  Positions funded by multiple departments will have multiple values in this attribute
+        /// </summary>
+        [DataMapping("employeePositionFunding")]
         public string EmployeePositionFunding { get; set; }
 
-        [DataMapping("employeeisferpatrained")]
+        /// <summary>
+        /// Indicates FERPA training, "Y" for employees who have had FERPA training and "N" for employees who have not.
+        /// </summary>
+        [DataMapping("employeeIsFerpaTrained")]
         private string EmployeeIsFerpaTrainedString { get; set; }
 
-        public bool EmployeeIsFerpaTrained
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(EmployeeIsFerpaTrainedString) || string.IsNullOrWhiteSpace(EmployeeIsFerpaTrainedString))
-                    return false;
-
-                if (EmployeeIsFerpaTrainedString.ToUpper() == "Y")
-                    return true;
-                else
-                    return false;
-            }
-        }
-
-        [DataMapping("employeepositionfte")]
+        /// <summary>
+        /// Percentage of an employee's FTE for an incumbent position.
+        /// </summary>
+        [DataMapping("employeePositionFte")]
         public string EmployeePositionsFTE { get; set; }
 
-        [DataMapping("employeefte")]
+        /// <summary>
+        /// FTE for the employee as a whole.  Note: this is more complex than just summing the FTE percentages from the incumbent positions.
+        /// </summary>
+        [DataMapping("employeeFte")]
         public string EmployeeFTE { get; set; }
 
-        [DataMapping("employeepobox")]
+        /// <summary>
+        /// Post Office Box number of an employee's work-related mailing address.
+        /// </summary>
+        [DataMapping("employeePoBox")]
         public string EmployeePOBox { get; set; }
 
+        /// <summary>
+        /// Full name (first name middle initial-or-name last name).
+        /// </summary>
         [DataMapping("cn")]
         public string FullName { get; set; }
 
-        [DataMapping("dateofbirth")]
+        /// <summary>
+        /// Date of birth in format YYYYMMDD.
+        /// </summary>
+        [DataMapping("dateOfBirth")]
         public string Birthdate { get; set; }
 
-        [DataMapping("edupersonaffiliation")]
+        /// <summary>
+        /// University affiliation.  For information on the use of these attributes, see the EDS eduPersonAffiliation Overview (http://iia.arizona.edu/eds_attributes#edupersonaffiliationoverview).
+        /// </summary>
+        [DataMapping("eduPersonAffiliation")]
         public IList<string> EduPersonAffiliations { get; set; }
 
-        [DataMapping("edupersonprimaryaffiliation")]
+        /// <summary>
+        /// Primary University affiliation.  For information on primary affiliation, see EDS eduPersonPrimaryAffiliation Determination (http://iia.arizona.edu/eds_attributes#primaryaffiliationdetermination).
+        /// </summary>
+        [DataMapping("eduPersonPrimaryAffiliation")]
         public string EduPersonPrimaryAffiliation { get; set; }
 
-        [DataMapping("emplid")]
+        /// <summary>
+        /// Eight-digit number that is the primary identifier on campus. The EMPLID is a common identifier that will be shared between UAccess Student and Uaccess Employee.
+        /// </summary>
+        [DataMapping("emplId")]
         public int EmplId { get; set; }
 
-        [DataMapping("employeebldgname")]
+        /// <summary>
+        /// Name of the building that corresponds to an employee's primary department.
+        /// </summary>
+        [DataMapping("employeeBldgName")]
         public string EmployeeBuildingName { get; set; }
 
-        [DataMapping("employeebldgnum")]
+        /// <summary>
+        /// Number of the building that corresponds to an employee's primary department.
+        /// </summary>
+        [DataMapping("employeeBldgNum")]
         public int EmployeeBuildingNumber { get; set; }
 
-        [DataMapping("employeeprimarydept")]
+        /// <summary>
+        /// Contains the text description of a student's career program plan and the format is "Career - Program - Plan" 
+        /// </summary>
+        [DataMapping("studentAPDesc")]
+        public string StudentCareerPlanDescription { get; set; }
+
+        /// <summary>
+        /// Contains current and future admit career program plans with these colon (:) delimited items.  For more information, see Career Program Plan (http://iia.arizona.edu/eds_attributes#cpptable).
+        /// </summary>
+        [DataMapping("studentPrimaryCareerProgramPlan")]
+        public string PrimaryStudentCareerProgramPlan { get; set; }
+
+        /// <summary>
+        /// If student is, or has previously been, a member of the Honors College, this attribute will be present and reflect their current status in the Honors program. Y indicates "active" and N indicates "inactive".
+        /// </summary>
+        [DataMapping("studentHonorsActive")]
+        public string StudentHonorsActive { get; set; }
+
+        /// <summary>
+        /// Contains one or more values representing items of student information not to be released.  For code descriptions, see studentInfoRelease Codes (http://iia.arizona.edu/eds_attributes#employeetype).
+        /// </summary>
+        [DataMapping("studentInfoReleaseCode")]
+        public IList<string> InformationReleaseCodes { get; set; }
+
+        /// <summary>
+        /// Contains past values of the studentStatus attribute.
+        /// </summary>
+        [DataMapping("studentStatusHistory")]
+        public IList<string> StudentStatusHistory { get; set; }
+
+        /// <summary>
+        /// Person's preferred given name (first name and middle initial-or-name).
+        /// </summary>
+        [DataMapping("preferredGivenname")]
+        public string PreferredFirstMiddleName { get; set; }
+
+        /// <summary>
+        /// Dept # of employee's primary department (also known as home department); refers to the department where an employee's paycheck is sent.
+        /// </summary>
+        [DataMapping("employeePrimaryDept")]
         public string EmployeePrimaryDepartment { get; set; }
 
-        [DataMapping("employeeprimarydeptname")]
+        /// <summary>
+        /// Textual description corresponding to employeePrimaryDept.
+        /// </summary>
+        [DataMapping("employeePrimaryDeptName")]
         public string EmployeePrimaryDepartmentName { get; set; }
 
-        [DataMapping("employeestatus")]
+        /// <summary>
+        /// UAccess Employee status codes.  For code descriptions, see employeeStatus Codes (http://iia.arizona.edu/eds_attributes#employeestatus).
+        /// </summary>
+        [DataMapping("employeeStatus")]
         public string EmployeeStatus { get; set; }
 
-        [DataMapping("employeetype")]
+        /// <summary>
+        /// One-character code from UAccess Employee that identifies  the type of an employment.  For type descriptions, see employeeType Descriptions (http://iia.arizona.edu/eds_attributes#employeetype).
+        /// </summary>
+        [DataMapping("employeeType")]
         public string EmployeeType { get; set; }
 
-        [DataMapping("givenname")]
+        /// <summary>
+        /// First name and middle initial-or-name.
+        /// </summary>
+        [DataMapping("givenName")]
         public string FirstMiddleName { get; set; }
 
+        /// <summary>
+        /// UA email address.
+        /// </summary>
         [DataMapping("mail")]
         public string Email { get; set; }
 
-        [DataMapping("objectclass")]
+        /// <summary>
+        /// Primary action date for a DCC and the start date for new DCCs. it can be a future date, in which case the dccStatus will be 'F'.
+        /// </summary>
+        [DataMapping("dccPrimaryActionDate")]
+        public string DccPrimaryActionDate { get; set; }
+
+        /// <summary>
+        /// Primary department code for a DCC.
+        /// </summary>
+        [DataMapping("dccPrimaryDept")]
+        public string DccPrimaryDepartment { get; set; }
+
+        /// <summary>
+        /// Primary department name for a DCC.
+        /// </summary>
+        [DataMapping("dccPrimaryDeptName")]
+        public string DccPrimaryDepartmentName { get; set; }
+
+        /// <summary>
+        /// Primary end date for the DCC relationship.
+        /// </summary>
+        [DataMapping("dccPrimaryEndDate")]
+        public string DccPrimaryEndDate { get; set; }
+
+        /// <summary>
+        /// Primary status of the DCC.  For status values, see dccPrimaryStatus Values (http://iia.arizona.edu/eds_attributes#dccprimarystatus).
+        /// </summary>
+        [DataMapping("dccPrimaryStatus")]
+        public string DccPrimaryStatus { get; set; }
+
+        /// <summary>
+        /// Primary title of the DCC.
+        /// </summary>
+        [DataMapping("dccPrimaryTitle")]
+        public string DccPrimaryTitle { get; set; }
+
+        /// <summary>
+        /// Primary type of the DCC.  For DCC type values, see the DCC Types Table (http://iia.arizona.edu/eds_attributes#dcctypes).
+        /// </summary>
+        [DataMapping("dccPrimaryType")]
+        public string DccPrimaryType { get; set; }
+
+        /// <summary>
+        /// The subcategory code for the primary DCC relationship, if (and only if) the primary DCC relationship type has a subcategory (else the attribute will not be present).  For DCC type values, see the DCC Types Table (http://iia.arizona.edu/eds_attributes#dcctypes).
+        /// </summary>
+        [DataMapping("dccPrimarySubCategory")]
+        public string DccPrimarySubCategory { get; set; }
+
+        /// <summary>
+        ///A DCC's relationship(s) with the University representated as a colon (:) separated list consisting of the DCC's title, type, department, department name, status, action date, end date, and subcategory code (if any).  For DCC type values, see the DCC Types Table (http://iia.arizona.edu/eds_attributes#dcctypes).
+        /// </summary>
+        [DataMapping("dccRelation")]
+        public IList<string> DccRelations { get; set; }
+
+        /// <summary>
+        /// UAID of a DSV that has converted to a DCC.
+        /// </summary>
+        [DataMapping("dsvUAID")]
+        public string DsvUaId { get; set; }
+
+        /// <summary>
+        /// LDAP object classes identify the type of a directory entry. Object classes define the mandatory and optional attributes an entry of a specific type may carry.
+        /// </summary>
+        [DataMapping("objectClass")]
         public IList<string> ObjectClasses { get; set; }
 
+        /// <summary>
+        ///  Last name.
+        /// </summary>
         [DataMapping("sn")]
         public string LastName { get; set; }
 
+        /// <summary>
+        /// Uniquely identifies each UA-affiliated person.
+        /// </summary>
         [DataMapping("uaid")]
         public string UniversityId { get; set; }
 
-        [DataMapping("ismemberof")]
+        /// <summary>
+        /// Each value is the DN of a group the person is a member of.  For more information, see Course Groups (http://iia.arizona.edu/coursegroups).
+        /// </summary>
+        [DataMapping("isMemberOf")]
         public IList<string> Memberships { get; set; }
 
-        [DataMapping("employeecity")]
+        /// <summary>
+        /// Employee's work address city.
+        /// </summary>
+        [DataMapping("employeeCity")]
         public string EmployeeCity { get; set; }
 
-        [DataMapping("employeezip")]
+        /// <summary>
+        /// Employee's work address zip code.
+        /// </summary>
+        [DataMapping("employeeZip")]
         public string EmployeePostalCode { get; set; }
 
-        [DataMapping("employeealternatetitle")]
+        /// <summary>
+        /// Alternate employee title.
+        /// </summary>
+        [DataMapping("employeeAlternateTitle")]
         public string EmployeeAlternateTitle { get; set; }
 
+        /// <summary>
+        /// Domain name?
+        /// </summary>
         [DataMapping("dn")]
         public string DomainName { get; set; }
 

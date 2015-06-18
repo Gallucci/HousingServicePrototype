@@ -56,7 +56,7 @@ namespace HousingServicePrototype.Models.DataAccess.LookupService.EDS
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
 
-                // Wait for a response from the service
+                // Wait for a response from the service (HTTP GET)
                 var response = await client.GetAsync(request.RequestUrl);                
 
                 // If the response reports a success then do work
@@ -68,7 +68,7 @@ namespace HousingServicePrototype.Models.DataAccess.LookupService.EDS
                         new JsonMediaTypeFormatter()
                     };
 
-                    // Set up the response with the returned content and return it
+                    // Set up the response with the returned content, format it, and return it
                     apiResponse.Success = true;                    
                     apiResponse.Person = await response.Content.ReadAsAsync<Person>(formatters);
                     return apiResponse;

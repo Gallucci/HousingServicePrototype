@@ -131,7 +131,7 @@ namespace HousingServicePrototype
             var edsPersonServiceApi = new HousingServicePrototype.Models.DataAccess.EDS.PersonService.EdiApi();
 
             var edsPersonServiceRequest = new HousingServicePrototype.Models.DataAccess.EDS.PersonService.GetPersonRequest.GetPersonRequestBuilder(edsPersonServiceScheme, edsPersonServiceHost, edsPersonServicePath)
-                .SearchByEmplId("16201293")
+                .SearchByEmplId("01664073")
                 .Build();
 
             Console.WriteLine();
